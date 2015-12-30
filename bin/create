@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+var minimist = require('minimist')
+var createApi = require('../client/api')
+
+var api = createApi()
+var args = minimist(process.argv.slice(2))
+
+delete args._
+
+api.service('things').create(args)
+  .then(function (thing) {
+    console.log("created", thing)
+  })
+  .catch(function (err) {
+    console.error("error", err)
+  })
